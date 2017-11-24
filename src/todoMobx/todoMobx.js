@@ -1,32 +1,8 @@
 import React, { Component } from 'react';
 import { Input, Row, Col, Button, Table } from 'antd';
 
-import './todoList.scss';
+import './todoMobx.scss';
 
-/*class TasksList extends Component {
-
-    deleteTask = (todoEntry) => {
-        this.state.toDoList.pop(todoEntry);
-        this.setState({ toDoList: this.state.toDoList });
-        //alert("new Task: " + newTask + " added, toDoList=" + this.state.toDoList);
-    }
-
-    render() {
-        let todoEntries = this.props.entries;
-        return (<ul>
-            {todoEntries.map((todoEntry, index) => (
-                <Row>
-                    <Col span={8} offset={6}>
-                        <li key={index}>{todoEntry}</li>
-                    </Col>
-                    <Col span={4} ><Button type="warn" onClick={this.deleteTask(todoEntry)}>Done</Button></Col>
-                    <br />
-                </Row>)
-            )}
-        </ul>
-        )
-    }
-}*/
 
 class ToDoList extends Component {
 
@@ -35,7 +11,7 @@ class ToDoList extends Component {
         super(props);
         this.state = {
             newTaskName: '',
-            toDoList: [{ id: 0, name: "default task" }]
+            toDoList: ['default task']
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -44,19 +20,20 @@ class ToDoList extends Component {
         this.setState({ newTaskName: event.target.value });
     }
 
-    addTask = () => {
 
+    addTask = () => {
         let newTask = this.state.newTaskName;
-        this.state.toDoList.push({ "id": this.state.toDoList.length + 1, "name": newTask });
+        this.state.toDoList.push(newTask);
         this.setState({ toDoList: this.state.toDoList });
         this.setState({ newTaskName: null });
-        //alert("new Task: " + newTask + " added, toDoList=" + this.state.toDoList);
     }
 
     deleteTask = (todoEntry) => {
+
         this.state.toDoList.pop(todoEntry);
         this.setState({ toDoList: this.state.toDoList });
     }
+
 
     render() {
         return (
@@ -71,15 +48,18 @@ class ToDoList extends Component {
                 </Row>
                 <br />
                 <h2>Tasks List </h2>
+
                 <br />
+
                 {/*   <TasksList entries={this.state.toDoList} /> */}
                 <ul>
-                    {this.state.toDoList.map((todoEntry) =>
-                        <Row key={todoEntry.id}>
+                    {this.state.toDoList.map((todoEntry, i) =>
+                        <Row>
                             <Col span={8} offset={6}>
-                                <li>{todoEntry.name}</li>
+                                <li key={i}>{todoEntry}</li>
                             </Col>
-                            <Col span={4} ><Button type="danger" onClick={this.deleteTask}>Done</Button></Col>
+                            <Col span={4} ><Button type="danger" onClick={this.deleteTask(todoEntry)}>Done</Button></Col>
+                            <br />
                         </Row>
                     )}
                 </ul>
