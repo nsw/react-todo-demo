@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //import logo from './logo.svg';
 import './App.scss';
 import TodoList from './todoList/todoList';
+import TodoMobx from './todoMobx/todoMobx';
 import TestDemo from './testDemo/testDemo';
 import { Route, NavLink, Switch } from 'react-router-dom';
 import { Layout, Menu, Icon } from 'antd';
@@ -17,6 +18,7 @@ const Main = () => (
     <Route exact path="/" render={() => <h1>Home</h1>} />
     <Route path="/todoList" render={() => <TodoList name="to do" />} />
     <Route path="/testDemo" render={() => <TestDemo />} />
+    <Route path="/todoMobx" render={() => <TodoMobx />} />
     {/* <Route path="/todoList" component={TodoList} name="to do.." />
     <Route path="/testDemo" component={TestDemo} /> */}
 
