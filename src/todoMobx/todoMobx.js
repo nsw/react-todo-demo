@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 import { Input, Row, Col, Button, Table } from 'antd';
+import { observer } from 'mobx-react';
+import {observable, computed, reaction} from 'mobx';
 
 import './todoMobx.scss';
 
+import PropTypes from 'prop-types';
+import DevTool from 'mobx-react-devtools';
 
-class ToDoList extends Component {
 
-
+@observer
+export default class TodoMobx extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             newTaskName: '',
-            toDoList: ['default task']
+            @observable 
+             toDoList: []
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -20,21 +25,19 @@ class ToDoList extends Component {
         this.setState({ newTaskName: event.target.value });
     }
 
-
     addTask = () => {
+
         let newTask = this.state.newTaskName;
-        this.state.toDoList.push(newTask);
-        this.setState({ toDoList: this.state.toDoList });
+        this.state.toDoList.push({ "id": this.state.toDoList.length + 1, "name": newTask });
+       // this.setState({ toDoList: this.state.toDoList });
         this.setState({ newTaskName: null });
+        //alert("new Task: " + newTask + " added, toDoList=" + this.state.toDoList);
     }
 
     deleteTask = (todoEntry) => {
-
         this.state.toDoList.pop(todoEntry);
-        this.setState({ toDoList: this.state.toDoList });
+       // this.setState({ toDoList: this.state.toDoList });
     }
-
-
     render() {
         return (
             <div>
@@ -48,18 +51,15 @@ class ToDoList extends Component {
                 </Row>
                 <br />
                 <h2>Tasks List </h2>
-
                 <br />
-
                 {/*   <TasksList entries={this.state.toDoList} /> */}
                 <ul>
-                    {this.state.toDoList.map((todoEntry, i) =>
-                        <Row>
+                    {this.state.toDoList.map((todoEntry) =>
+                        <Row key={todoEntry.id}>
                             <Col span={8} offset={6}>
-                                <li key={i}>{todoEntry}</li>
+                                <li>{todoEntry.name}</li>
                             </Col>
-                            <Col span={4} ><Button type="danger" onClick={this.deleteTask(todoEntry)}>Done</Button></Col>
-                            <br />
+                            <Col span={4} ><Button type="danger" onClick={this.deleteTask}>Done</Button></Col>
                         </Row>
                     )}
                 </ul>
@@ -67,6 +67,23 @@ class ToDoList extends Component {
             </div>
         );
     }
-}
 
-export default ToDoList;
+
+    /*  componentDidMount() {
+         if (__CLIENT__) {
+             var { Router } = require('director/build/director');
+             var viewStore = this.props.viewStore;
+             var router = Router({
+                 '/': function () { viewStore.todoFilter = ALL_TODOS; },
+                 '/active': function () { viewStore.todoFilter = ACTIVE_TODOS; },
+                 '/completed': function () { viewStore.todoFilter = COMPLETED_TODOS; }
+             });
+             router.init('/');
+         }
+     } */
+}
+/* 
+TodoMobx.propTypes = {
+    viewStore: PropTypes.object.isRequired,
+    todoStore: PropTypes.object.isRequired
+}; */

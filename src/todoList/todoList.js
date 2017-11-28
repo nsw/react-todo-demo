@@ -30,7 +30,6 @@ import './todoList.scss';
 
 class ToDoList extends Component {
 
-
     constructor(props) {
         super(props);
         this.state = {
@@ -48,14 +47,14 @@ class ToDoList extends Component {
 
         let newTask = this.state.newTaskName;
         this.state.toDoList.push({ "id": this.state.toDoList.length + 1, "name": newTask });
-        this.setState({ toDoList: this.state.toDoList });
+        //this.setState({ toDoList: this.state.toDoList });
         this.setState({ newTaskName: null });
         //alert("new Task: " + newTask + " added, toDoList=" + this.state.toDoList);
     }
 
     deleteTask = (todoEntry) => {
         this.state.toDoList.pop(todoEntry);
-        this.setState({ toDoList: this.state.toDoList });
+        //this.setState({ toDoList: this.state.toDoList });
     }
 
     render() {

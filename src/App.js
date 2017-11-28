@@ -66,7 +66,10 @@ class App extends Component {
               </Menu.Item>
               <Menu.Item key="3">
                 <Icon type="upload" />
-                <span>nav 3</span>
+                <span><NavLink to="/todoMobx" activeStyle={{
+                  color: 'lightgreen',
+                  fontWeight: 'bold'
+                }}>To-do Mobx</NavLink></span>
               </Menu.Item>
             </Menu>
           </Sider>
@@ -96,7 +99,7 @@ class App extends Component {
               Ant Design ©2016 Created by Ant UED </Footer>
           </Layout>
         </Layout>
-      </div>
+      </div >
     );
   }
 }
